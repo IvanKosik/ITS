@@ -1,11 +1,24 @@
 #include "MainWindow.h"
-#include <QApplication>
+#include "Db.h"
 
+#include <QApplication>
+#include <QMessageBox>
+#include <QTime>
+//-----------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    QApplication application(argc, argv);
 
-    return a.exec();
+    if (Db::instance()->getStatus() != Db::Ok) {
+        QMessageBox::critical(0, "Error", "Cannot create DB connection!");
+        return 1;
+    }
+
+    qsrand(QTime::currentTime().msec());
+
+    MainWindow mainWindow;
+    mainWindow.show();
+
+    return application.exec();
 }
+//-----------------------------------------------------------------------------
