@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "Db.h"
+
 #include <QMainWindow>
 //-----------------------------------------------------------------------------
 namespace Ui
@@ -17,8 +19,11 @@ public:
     ~MainWindow();
 
 private slots:
+    void sessionOpened(Id learnerId);
+    void sessionClosed();
+
     void on_newLeanerPushButton_clicked();
-    void on_loginPushButton_clicked();
+    void on_logPushButton_clicked();
     void on_quitPushButton_clicked();
 
 private:

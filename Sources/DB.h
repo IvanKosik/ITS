@@ -27,7 +27,7 @@ public:
 
     // Learner table methods:
     bool hasLearner(const Learner &learner);
-    bool addLearner(const Learner &learner);
+    bool addLearner(const Learner &learner, Id &learnerId);
     Learner getLearner(Id learnerId);
 
 protected:

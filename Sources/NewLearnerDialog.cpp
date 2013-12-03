@@ -3,6 +3,7 @@
 
 #include "Db.h"
 #include "Learner.h"
+#include "Session.h"
 
 #include <QtWidgets>
 //-----------------------------------------------------------------------------
@@ -106,11 +107,14 @@ void NewLearnerDialog::okPushButtonClicked()
     mUi->indeterminateRadioButton->isChecked() ? genderType = Gender::Indeterminate
             : mUi->maleRadioButton->isChecked() ? genderType = Gender::Male
             : genderType = Gender::Female;
+    Id learnerId;
     Db::instance()->addLearner(Learner(mUi->nicknameLineEdit->text()
                                        , mUi->passwordLineEdit->text()
                                        , mUi->descriptionTextEdit->toPlainText()
                                        , genderType
-                                       , *mUi->avatarLabel->pixmap()));
+                                       , *mUi->avatarLabel->pixmap())
+                               , learnerId);
+    Session::instance()->open(learnerId);
     done(QDialog::Accepted);
 }
 //-----------------------------------------------------------------------------

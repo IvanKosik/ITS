@@ -44,7 +44,7 @@ bool Db::hasLearner(const Learner &learner)
     return findQuery.first();
 }
 //-----------------------------------------------------------------------------
-bool Db::addLearner(const Learner &learner)
+bool Db::addLearner(const Learner &learner, Id &learnerId)
 {
     SqlQuery insertQuery;
     insertQuery.prepare(QString("INSERT INTO %1 VALUES (NULL, :nickname, :password"
@@ -55,7 +55,9 @@ bool Db::addLearner(const Learner &learner)
     insertQuery.bindValue(":gender", learner.getGenderType());
     insertQuery.bindValue(":description", learner.getDescription());
     insertQuery.bindValue(":avatar", pixmapToByteArray(learner.getAvatar()));
-    return insertQuery.exec();
+    bool result = insertQuery.exec();
+    learnerId = insertQuery.lastInsertId().toLongLong();
+    return result;
 }
 //-----------------------------------------------------------------------------
 Learner Db::getLearner(Id learnerId)
@@ -167,6 +169,7 @@ Db::Db()
 //-----------------------------------------------------------------------------
 Db::~Db()
 {
+    deleteInstance();
 }
 //-----------------------------------------------------------------------------
 QByteArray pixmapToByteArray(const QPixmap &pixmap)

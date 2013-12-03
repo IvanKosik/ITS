@@ -6,6 +6,7 @@
 #include "Db.h"
 #include "SqlQuery.h"
 #include "Gender.h"
+#include "Session.h"
 
 #include <QtWidgets>
 #include <QSqlQueryModel>
@@ -83,7 +84,17 @@ void LoginDialog::okPushButtonClicked()
 {
     qint32 curRow = mUi->learnerTableView->currentIndex().row();
     Id learnerId = mLearnerModel->data(mLearnerModel->index(curRow, 0)).toLongLong();
-    Learner learner = Db::instance()->getLearner(learnerId);
+//%    Learner learner = Db::instance()->getLearner(learnerId);
+
+    // Check password:
+    if (mLearnerModel->data(mLearnerModel->index(curRow, 2)).toString()
+            == mUi->passwordLineEdit->text()) {
+        Session::instance()->open(learnerId);
+        done(QDialog::Accepted);
+    } else {
+        QMessageBox::warning(this, tr("Incorrect password")
+                             , tr("The entered password is not correct!"));
+    }
 }
 //-----------------------------------------------------------------------------
 void LoginDialog::currentLearnerChanged(const QModelIndex &current
