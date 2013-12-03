@@ -1,6 +1,8 @@
 #ifndef LEARNER_H
 #define LEARNER_H
 
+#include "Gender.h"
+
 #include <QObject>
 #include <QPixmap>
 
@@ -15,33 +17,34 @@ public:
     static const QString IdCn; // ID column name.
     static const QString NicknameCn;
     static const QString PasswordCn;
-    static const QString GenderCn;
+//%    static const QString GenderCn;
     static const QString DescriptionCn;
     static const QString AvatarCn;
 
-    enum Gender
+    /*%enum Gender
     {
         Indeterminate
         , Male
         , Female
-    };
+    };%*/
 
-    static QString genderToStr(const Gender gender);
+    //%static QString genderToStr(const Gender gender);
 
     Learner(const QString &nickname = "", const QString &password = ""
-            , const QString &description = "", const Gender gender = Indeterminate
+            , const QString &description = ""
+            , const Gender::Type genderType = Gender::Indeterminate
             , const QPixmap &avatar = QPixmap());
 
     void setNickname(const QString &nickname);
     void setPassword(const QString &password);
     void setDescription(const QString &description);
-    void setGender(const Gender gender);
+    void setGenderType(const Gender::Type genderType);
     void setAvatar(const QPixmap &avatar);
 
     QString getNickname() const;
     QString getPassword() const;
     QString getDescription() const;
-    Gender getGender() const;
+    Gender::Type getGenderType() const;
     QString getGenderStr() const;
     QPixmap getAvatar() const;
 
@@ -49,7 +52,7 @@ protected:
     QString mNickname;
     QString mPassword;
     QString mDescription;
-    Gender mGender;
+    Gender::Type mGenderType;
     QPixmap mAvatar;
 };
 //-----------------------------------------------------------------------------

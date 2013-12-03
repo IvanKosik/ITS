@@ -102,14 +102,14 @@ void NewLearnerDialog::okPushButtonClicked()
 {
     // "OK" button will be disabled if DB already contains learner
     // with indicated name.
-    Learner::Gender gender;
-    mUi->indeterminateRadioButton->isChecked() ? gender = Learner::Indeterminate
-            : mUi->maleRadioButton->isChecked() ? gender = Learner::Male
-            : gender = Learner::Female;
+    Gender::Type genderType;
+    mUi->indeterminateRadioButton->isChecked() ? genderType = Gender::Indeterminate
+            : mUi->maleRadioButton->isChecked() ? genderType = Gender::Male
+            : genderType = Gender::Female;
     Db::instance()->addLearner(Learner(mUi->nicknameLineEdit->text()
                                        , mUi->passwordLineEdit->text()
                                        , mUi->descriptionTextEdit->toPlainText()
-                                       , gender
+                                       , genderType
                                        , *mUi->avatarLabel->pixmap()));
     done(QDialog::Accepted);
 }

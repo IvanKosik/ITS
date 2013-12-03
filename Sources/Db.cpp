@@ -96,7 +96,7 @@ bool Db::addLearner(const Learner &learner)
 
     insertQuery.bindValue(":nickname", learner.getNickname());
     insertQuery.bindValue(":password", learner.getPassword());
-    insertQuery.bindValue(":gender", learner.getGender());
+    insertQuery.bindValue(":gender", learner.getGenderType());
     insertQuery.bindValue(":description", learner.getDescription());
     insertQuery.bindValue(":avatar", pixmapToByteArray(learner.getAvatar()));
     return insertQuery.exec();
@@ -129,11 +129,11 @@ Learner Db::getLearner(Id learnerId)
         QString nickname = findQuery.value(Learner::NicknameCn).toString();
         QString password = findQuery.value(Learner::PasswordCn).toString();
         QString description = findQuery.value(Learner::DescriptionCn).toString();
-        Learner::Gender gender = static_cast<Learner::Gender>
-                (findQuery.value(Learner::GenderCn).toInt());
+        Gender::Type genderType = static_cast<Gender::Type>
+                (findQuery.value(Gender::IdCn).toInt());
         QPixmap avatar;
         avatar.loadFromData(findQuery.value(Learner::AvatarCn).toByteArray());
-        learner = Learner(nickname, password, description, gender, avatar);
+        learner = Learner(nickname, password, description, genderType, avatar);
     }
     return learner;
 }
@@ -162,6 +162,27 @@ Db::Status Db::createTables()
     Status status = Ok;
 
     SqlQuery createTableQuery;
+    // Gender table:
+    createTableQuery.prepare(QString("CREATE TABLE IF NOT EXISTS %1"
+                                     "( %2 INTEGER NOT NULL UNIQUE"
+                                     ", %3 TEXT    NOT NULL UNIQUE"
+                                     ", PRIMARY KEY(%2)           )")
+                             .arg(Gender::Tn, Gender::IdCn, Gender::NameCn));
+    if (!createTableQuery.exec()) {
+        qDebug() << "Unable to create the Gender table!";
+        status = Error;
+    }
+    // Insert data into the Gender table:
+    SqlQuery insertQuery;
+    insertQuery.prepare(QString("INSERT OR IGNORE INTO %1 VALUES (NULL, ?)")
+                        .arg(Gender::Tn));
+    QVariantList names;
+    names << "Indeterminate" << "Male" << "Female";
+    insertQuery.addBindValue(names);
+    insertQuery.execBatch();
+
+
+    // Learner table:
     createTableQuery.prepare(QString("CREATE TABLE IF NOT EXISTS %1"
                                      "( %2 INTEGER NOT NULL UNIQUE"
                                      ", %3 TEXT    NOT NULL UNIQUE"
@@ -169,11 +190,12 @@ Db::Status Db::createTables()
                                      ", %5 INTEGER NOT NULL       "
                                      ", %6 TEXT                   "
                                      ", %7 BLOB                   "
-                                     ", PRIMARY KEY(%2)           )")
+                                     ", PRIMARY KEY(%2)           "
+                                     ", FOREIGN KEY(%5) REFERENCES %8(%5))")
                              .arg(Learner::Tn, Learner::IdCn
                                   , Learner::NicknameCn, Learner::PasswordCn
-                                  , Learner::GenderCn, Learner::DescriptionCn
-                                  , Learner::AvatarCn));
+                                  , Gender::IdCn, Learner::DescriptionCn
+                                  , Learner::AvatarCn, Gender::Tn));
     if (!createTableQuery.exec()) {
         qDebug() << "Unable to create the Learner table!";
         status = Error;

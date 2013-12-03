@@ -8,11 +8,11 @@ const QString Learner::Tn = "Learner"; // Learner table name.
 const QString Learner::IdCn = "LearnerId"; // Learner ID column name.
 const QString Learner::NicknameCn = "LearnerNickname";
 const QString Learner::PasswordCn = "LearnerPassword";
-const QString Learner::GenderCn = "LearnerGender";
+//%const QString Learner::GenderCn = "LearnerGender";
 const QString Learner::DescriptionCn = "LearnerDescription";
 const QString Learner::AvatarCn = "LearnerAvatar";
 //-----------------------------------------------------------------------------
-QString Learner::genderToStr(const Learner::Gender gender)
+/*%QString Learner::genderToStr(const Learner::Gender gender)
 {
     switch (gender) {
     case Indeterminate:
@@ -23,13 +23,13 @@ QString Learner::genderToStr(const Learner::Gender gender)
         return "Female";
     }
     return "Unknown gender";
-}
+}%*/
 //-----------------------------------------------------------------------------
 Learner::Learner(const QString &nickname, const QString &password
-                 , const QString &description, const Learner::Gender gender
+                 , const QString &description, const Gender::Type genderType
                  , const QPixmap &avatar)
     : mNickname(nickname), mPassword(password), mDescription(description)
-    , mGender(gender), mAvatar(avatar)
+    , mGenderType(genderType), mAvatar(avatar)
 {
     qDebug() << "Learner pixmap:" << avatar;
 }
@@ -49,9 +49,9 @@ void Learner::setDescription(const QString &description)
     mDescription = description;
 }
 //-----------------------------------------------------------------------------
-void Learner::setGender(const Learner::Gender gender)
+void Learner::setGenderType(const Gender::Type genderType)
 {
-    mGender = gender;
+    mGenderType = genderType;
 }
 //-----------------------------------------------------------------------------
 void Learner::setAvatar(const QPixmap &avatar)
@@ -74,14 +74,14 @@ QString Learner::getDescription() const
     return mDescription;
 }
 //-----------------------------------------------------------------------------
-Learner::Gender Learner::getGender() const
+Gender::Type Learner::getGenderType() const
 {
-    return mGender;
+    return mGenderType;
 }
 //-----------------------------------------------------------------------------
 QString Learner::getGenderStr() const
 {
-    return genderToStr(mGender);
+    return Gender::typeToStr(mGenderType);
 }
 //-----------------------------------------------------------------------------
 QPixmap Learner::getAvatar() const

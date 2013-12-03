@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     SqlQuery.cpp \
     ImageDelegate.cpp \
     Session.cpp \
-    GenderDelegate.cpp
+    GenderDelegate.cpp \
+    Gender.cpp
 
 HEADERS  += MainWindow.h \
     Db.h \
@@ -33,7 +34,8 @@ HEADERS  += MainWindow.h \
     SqlQuery.h \
     ImageDelegate.h \
     Session.h \
-    GenderDelegate.h
+    GenderDelegate.h \
+    Gender.h
 
 FORMS    += MainWindow.ui \
     NewLearnerDialog.ui \

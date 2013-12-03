@@ -2,7 +2,8 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
-#include <QSqlTableModel>
+#include <QSqlQueryModel>
+#include <QDataWidgetMapper>
 //-----------------------------------------------------------------------------
 namespace Ui
 {
@@ -19,10 +20,15 @@ public:
 
 private:
     Ui::LoginDialog *mUi;
-    QSqlTableModel *mLearnerModel;
+    QSqlQueryModel *mLearnerModel;
+    QDataWidgetMapper *mDataWidgetMapper;
 
 private slots:
     void okPushButtonClicked();
+    void currentLearnerChanged(const QModelIndex &current
+                               , const QModelIndex &);
+
+//    void on_learnerTableView_activated(const QModelIndex &index);
 };
 //-----------------------------------------------------------------------------
 #endif // LOGINDIALOG_H

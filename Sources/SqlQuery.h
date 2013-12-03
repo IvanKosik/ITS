@@ -12,6 +12,7 @@ public:
 
     bool exec();
     bool exec(const QString &query);
+    bool execBatch(BatchExecutionMode mode = ValuesAsRows);
 
     QString getLastExecutedQuery();
 

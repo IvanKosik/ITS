@@ -29,6 +29,12 @@ bool SqlQuery::exec(const QString &query)
     return processResult(result);
 }
 //-----------------------------------------------------------------------------
+bool SqlQuery::execBatch(BatchExecutionMode mode)
+{
+    bool result = QSqlQuery::execBatch(mode);
+    return processResult(result);
+}
+//-----------------------------------------------------------------------------
 QString SqlQuery::getLastExecutedQuery()
 {
     QString query = lastQuery();
@@ -54,7 +60,7 @@ QString SqlQuery::getLastExecutedQuery()
 bool SqlQuery::processResult(bool result)
 {
     //%qDebug() << "SqlQuery::processResult: executedQuery:" << executedQuery();
-    qDebug() << "SqlQuery::processResult: lastQuery           :" << lastQuery();
+    //%qDebug() << "SqlQuery::processResult: lastQuery           :" << lastQuery();
     qDebug() << "SqlQuery::processResult: getLastExecutedQuery:" << getLastExecutedQuery();
 
     if (result == false) {
