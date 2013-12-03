@@ -41,78 +41,21 @@ bool Db::hasLearner(const Learner &learner)
                       .arg(Learner::Tn, Learner::NicknameCn));
     findQuery.bindValue(":nickname", learner.getNickname());
     findQuery.exec();
-//    return findQuery.first();
-
-    findQuery.first();
-
-//    QPixmap pixmap = findQuery.value(Learner::AvatarCn).value<QPixmap>();
-//    QSize pixmapSize = pixmap.size();
-//    QString sizeStr = QString("(%1 x %2)")
-//            .arg(pixmapSize.width())
-//            .arg(pixmapSize.height());
-    QByteArray byteArray = findQuery.value(Learner::AvatarCn).toByteArray();
-    qDebug() << "byteArray:" << byteArray;
-    QPixmap pixmap;
-    pixmap.loadFromData(byteArray);
-
-//    QPixmap pixmap = findQuery.value(Learner::AvatarCn).value<QPixmap>();
-    qDebug() << pixmap;
-    qDebug() << "description:" << findQuery.value(Learner::DescriptionCn);
-
     return findQuery.first();
-    /*QString condition = Learner::NicknameCn + " = ?";
-    QVariantList bindValues;
-    bindValues << learner.getNickname();
-    QSqlQuery findQuery
-            = QueryManager::instance()->execSelectAllQuery(Learner::Tn
-                                                           , condition
-                                                           , bindValues);
-    return findQuery.first();*/
 }
 //-----------------------------------------------------------------------------
 bool Db::addLearner(const Learner &learner)
 {
-//    QStringList values;
-//    values << "NULL" << "?" << "?";
-//    QVariantList bindValues;
-//    bindValues << learner.getNickname();
-//    bindValues << learner.getPassword();
-//    QSqlQuery insertQuery = QueryManager::instance()->execInsertQuery(Learner::Tn
-//                                                                      , values
-//                                                                      , bindValues);
-
-//    QSqlQuery insertQuery("INSERT INTO Learner (LearnerId, LearnerNickname, LearnerPassword) VALUES (NULL, ?, ?)");
-
-//    QSqlQuery insertQuery("INSERT INTO Learner VALUES (NULL, ?, ?)");
     SqlQuery insertQuery;
-
     insertQuery.prepare(QString("INSERT INTO %1 VALUES (NULL, :nickname, :password"
                                 ", :gender, :description, :avatar)")
                         .arg(Learner::Tn));
-//    insertQuery.bindValue(":tn", QVariant("Learner"));
-//    insertQuery.addBindValue("Learner");
-    qDebug() << "getAvatar:" << learner.getAvatar();
-//    qDebug() << "getAvatar.toString:" << learner.getAvatar();
-
     insertQuery.bindValue(":nickname", learner.getNickname());
     insertQuery.bindValue(":password", learner.getPassword());
     insertQuery.bindValue(":gender", learner.getGenderType());
     insertQuery.bindValue(":description", learner.getDescription());
     insertQuery.bindValue(":avatar", pixmapToByteArray(learner.getAvatar()));
     return insertQuery.exec();
-//    insertQuery.addBindValue(learner.getNickname());
-//    insertQuery.addBindValue(learner.getPassword());
-
-//    return insertQuery.exec();
-
-         /*       if (!insertQuery.exec()) {
-                    QMessageBox::warning(0, QObject::tr("Error"), QObject::tr("Cannot execute query to insert into Eng table!")
-                                         + QObject::tr("\nError code: ") + QString::number(insertQuery.lastError().number())
-                                         + QObject::tr("\nError text: ") + insertQuery.lastError().text());
-                    return false;
-                }
-
-                return true;*/
 }
 //-----------------------------------------------------------------------------
 Learner Db::getLearner(Id learnerId)
@@ -153,7 +96,6 @@ Db::Status Db::createConnection()
                               , QMessageBox::Cancel);
         return Error;
     }
-
     return Ok;
 }
 //-----------------------------------------------------------------------------
@@ -179,8 +121,10 @@ Db::Status Db::createTables()
     QVariantList names;
     names << "Indeterminate" << "Male" << "Female";
     insertQuery.addBindValue(names);
-    insertQuery.execBatch();
-
+    if (!insertQuery.execBatch()) {
+        qDebug() << "Unable to insert data into the Gender table!";
+        status = Error;
+    }
 
     // Learner table:
     createTableQuery.prepare(QString("CREATE TABLE IF NOT EXISTS %1"
@@ -227,21 +171,10 @@ Db::~Db()
 //-----------------------------------------------------------------------------
 QByteArray pixmapToByteArray(const QPixmap &pixmap)
 {
-//    qDebug() << "pixmap:" << pixmap;
-//    QSqlQuery qry(dbName);
-//    QPixmap pixmap("myFile.png", "PNG");
     QByteArray byteArray;
     QBuffer buffer(&byteArray);
     buffer.open(QIODevice::WriteOnly);
-    pixmap.save(&buffer, "PNG");//%, "PNG");  //%! Если не указать формат, то не работает!
-
-//    QPixmap p2;
-//    p2.loadFromData(byteArray);
-
-//    qDebug() << "pixmapToByteArray:" << byteArray;
-//    qDebug() << "p2:" << p2;
-//    qry.prepare("INSERT INTO table (blobField) VALUES (?);");
-//    qry.addBindValue(QVariant(bytes));
+    pixmap.save(&buffer, "PNG"); //%! Если не указать формат, то не работает!
     return byteArray;
 }
 //-----------------------------------------------------------------------------

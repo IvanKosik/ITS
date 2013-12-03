@@ -18,10 +18,8 @@ public:
 
 private slots:
     void on_newLeanerPushButton_clicked();
-
-    void on_quitPushButton_clicked();
-
     void on_loginPushButton_clicked();
+    void on_quitPushButton_clicked();
 
 private:
     Ui::MainWindow *mUi;

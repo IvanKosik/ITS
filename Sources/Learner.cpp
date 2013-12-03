@@ -8,22 +8,8 @@ const QString Learner::Tn = "Learner"; // Learner table name.
 const QString Learner::IdCn = "LearnerId"; // Learner ID column name.
 const QString Learner::NicknameCn = "LearnerNickname";
 const QString Learner::PasswordCn = "LearnerPassword";
-//%const QString Learner::GenderCn = "LearnerGender";
 const QString Learner::DescriptionCn = "LearnerDescription";
 const QString Learner::AvatarCn = "LearnerAvatar";
-//-----------------------------------------------------------------------------
-/*%QString Learner::genderToStr(const Learner::Gender gender)
-{
-    switch (gender) {
-    case Indeterminate:
-        return "Indeterminate";
-    case Male:
-        return "Male";
-    case Female:
-        return "Female";
-    }
-    return "Unknown gender";
-}%*/
 //-----------------------------------------------------------------------------
 Learner::Learner(const QString &nickname, const QString &password
                  , const QString &description, const Gender::Type genderType
@@ -31,7 +17,6 @@ Learner::Learner(const QString &nickname, const QString &password
     : mNickname(nickname), mPassword(password), mDescription(description)
     , mGenderType(genderType), mAvatar(avatar)
 {
-    qDebug() << "Learner pixmap:" << avatar;
 }
 //-----------------------------------------------------------------------------
 void Learner::setNickname(const QString &nickname)

@@ -27,8 +27,6 @@ private slots:
     void okPushButtonClicked();
     void currentLearnerChanged(const QModelIndex &current
                                , const QModelIndex &);
-
-//    void on_learnerTableView_activated(const QModelIndex &index);
 };
 //-----------------------------------------------------------------------------
 #endif // LOGINDIALOG_H

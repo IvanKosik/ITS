@@ -17,18 +17,8 @@ public:
     static const QString IdCn; // ID column name.
     static const QString NicknameCn;
     static const QString PasswordCn;
-//%    static const QString GenderCn;
     static const QString DescriptionCn;
     static const QString AvatarCn;
-
-    /*%enum Gender
-    {
-        Indeterminate
-        , Male
-        , Female
-    };%*/
-
-    //%static QString genderToStr(const Gender gender);
 
     Learner(const QString &nickname = "", const QString &password = ""
             , const QString &description = ""

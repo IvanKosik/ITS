@@ -25,13 +25,13 @@ void MainWindow::on_newLeanerPushButton_clicked()
     NewLearnerDialog(this);
 }
 //-----------------------------------------------------------------------------
-void MainWindow::on_quitPushButton_clicked()
-{
-    qApp->quit();
-}
-//-----------------------------------------------------------------------------
 void MainWindow::on_loginPushButton_clicked()
 {
     LoginDialog(this);
+}
+//-----------------------------------------------------------------------------
+void MainWindow::on_quitPushButton_clicked()
+{
+    qApp->quit();
 }
 //-----------------------------------------------------------------------------

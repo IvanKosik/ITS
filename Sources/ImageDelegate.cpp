@@ -21,7 +21,7 @@ void ImageDelegate::paint(QPainter *painter
     } else {
 
         if (option.state & QStyle::State_Selected) {
-            painter->fillRect(option.rect, QColor(51, 153, 255)); //% Use http://inettools.net/Pixelcolor
+            painter->fillRect(option.rect, option.palette.highlight());
         }
 
         pixmap = pixmap.scaled(option.rect.width(), option.rect.height()

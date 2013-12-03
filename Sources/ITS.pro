@@ -18,11 +18,9 @@ SOURCES += main.cpp\
     NewLearnerDialog.cpp \
     LoginDialog.cpp \
     Learner.cpp \
-    QueryManager.cpp \
     SqlQuery.cpp \
     ImageDelegate.cpp \
     Session.cpp \
-    GenderDelegate.cpp \
     Gender.cpp
 
 HEADERS  += MainWindow.h \
@@ -30,11 +28,9 @@ HEADERS  += MainWindow.h \
     NewLearnerDialog.h \
     LoginDialog.h \
     Learner.h \
-    QueryManager.h \
     SqlQuery.h \
     ImageDelegate.h \
     Session.h \
-    GenderDelegate.h \
     Gender.h
 
 FORMS    += MainWindow.ui \

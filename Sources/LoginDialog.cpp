@@ -3,7 +3,6 @@
 
 #include "Learner.h"
 #include "ImageDelegate.h"
-#include "GenderDelegate.h"
 #include "Db.h"
 #include "SqlQuery.h"
 #include "Gender.h"
@@ -43,24 +42,17 @@ LoginDialog::LoginDialog(QWidget *parent)
                               , Gender::NameCn, Learner::DescriptionCn, Learner::AvatarCn
                               , Learner::Tn, Gender::Tn, Gender::IdCn));
     learnerQuery.exec();
-    mLearnerModel->setQuery(learnerQuery);/*QString("SELECT %1, %2, %3, %4, %5, %6 FROM %7 INNER JOIN %8 ON %7.%9 = %8.%9")
-                            .arg(Learner::IdCn, Learner::NicknameCn, Learner::PasswordCn
-                                 , Gender::NameCn, Learner::DescriptionCn, Learner::AvatarCn
-                                 , Learner::Tn, Gender::Tn, Gender::IdCn));*/
+    mLearnerModel->setQuery(learnerQuery);
 
-    /*mLearnerModel = new QSqlTableModel; //%! delete or try without 'new'
-    mLearnerModel->setTable(Learner::Tn);*/
     mLearnerModel->setHeaderData(0, Qt::Horizontal, "ID");
     mLearnerModel->setHeaderData(1, Qt::Horizontal, "Nickname");
     mLearnerModel->setHeaderData(2, Qt::Horizontal, "Password");
     mLearnerModel->setHeaderData(3, Qt::Horizontal, "Gender");
     mLearnerModel->setHeaderData(4, Qt::Horizontal, "Description");
     mLearnerModel->setHeaderData(5, Qt::Horizontal, "Avatar");
-//    mLearnerModel->select();
 
     mUi->learnerTableView->setModel(mLearnerModel);
     mUi->learnerTableView->setItemDelegateForColumn(5, new ImageDelegate(mUi->learnerTableView));
-//    mUi->learnerTableView->setItemDelegateForColumn(3, new GenderDelegate(mUi->learnerTableView));
 
     mUi->learnerTableView->setColumnHidden(0, true); // ID
     mUi->learnerTableView->setColumnHidden(2, true); // Password
@@ -68,11 +60,9 @@ LoginDialog::LoginDialog(QWidget *parent)
 
     mUi->learnerTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-
     connect(mUi->learnerTableView->selectionModel()
             , SIGNAL(currentRowChanged(const QModelIndex &, const QModelIndex &))
             , SLOT(currentLearnerChanged(const QModelIndex &, const QModelIndex &)));
-
 
     mDataWidgetMapper = new QDataWidgetMapper;
     mDataWidgetMapper->setModel(mLearnerModel);
@@ -101,10 +91,4 @@ void LoginDialog::currentLearnerChanged(const QModelIndex &current
 {
     mDataWidgetMapper->setCurrentIndex(current.row());
 }
-//-----------------------------------------------------------------------------
-/*void LoginDialog::on_learnerTableView_activated(const QModelIndex &index)
-{
-    qDebug() << "index:" << index.row();
-    mDataWidgetMapper->setCurrentIndex(index.row());
-}*/
 //-----------------------------------------------------------------------------
