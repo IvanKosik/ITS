@@ -48,6 +48,13 @@
       </property>
      </widget>
     </item>
+    <item alignment="Qt::AlignRight|Qt::AlignTop">
+     <widget class="QPushButton" name="trainingPushButton">
+      <property name="text">
+       <string>&amp;Training</string>
+      </property>
+     </widget>
+    </item>
     <item alignment="Qt::AlignRight">
      <widget class="QPushButton" name="quitPushButton">
       <property name="sizePolicy">

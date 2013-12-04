@@ -25,6 +25,7 @@ private slots:
     void on_newLeanerPushButton_clicked();
     void on_logPushButton_clicked();
     void on_dictionaryPushButton_clicked();
+    void on_trainingPushButton_clicked();
     void on_quitPushButton_clicked();
 
 private:

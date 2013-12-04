@@ -4,6 +4,7 @@
 #include "NewLearnerDialog.h"
 #include "LoginDialog.h"
 #include "DictionaryDialog.h"
+#include "TrainingComplexityDialog.h"
 #include "Session.h"
 #include "Db.h"
 //-----------------------------------------------------------------------------
@@ -66,5 +67,18 @@ void MainWindow::on_quitPushButton_clicked()
 void MainWindow::on_dictionaryPushButton_clicked()
 {
     DictionaryDialog(this);
+}
+//-----------------------------------------------------------------------------
+void MainWindow::on_trainingPushButton_clicked()
+{
+    /*
+    NewGameDialog *newGamerDialog = new NewGameDialog(this);
+        if (newGamerDialog->exec() == QDialog::Accepted) {
+            NewGameDialog::Complexity complexity = newGamerDialog->getComplexity();
+            Game *game = new Game(complexity, mDictionary, this);
+            game->exec();
+        }
+        */
+    TrainingComplexityDialog(this);
 }
 //-----------------------------------------------------------------------------

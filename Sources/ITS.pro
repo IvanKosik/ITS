@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     Gender.cpp \
     Phrase.cpp \
     DictionaryDialog.cpp \
-    AddPhraseDialog.cpp
+    AddPhraseDialog.cpp \
+    TrainingComplexityDialog.cpp
 
 HEADERS  += MainWindow.h \
     Db.h \
@@ -37,13 +38,15 @@ HEADERS  += MainWindow.h \
     Gender.h \
     Phrase.h \
     DictionaryDialog.h \
-    AddPhraseDialog.h
+    AddPhraseDialog.h \
+    TrainingComplexityDialog.h
 
 FORMS    += MainWindow.ui \
     NewLearnerDialog.ui \
     LoginDialog.ui \
     DictionaryDialog.ui \
-    AddPhraseDialog.ui
+    AddPhraseDialog.ui \
+    TrainingComplexityDialog.ui
 
 RESOURCES += \
     ITS.qrc
