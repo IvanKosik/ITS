@@ -42,6 +42,13 @@
      </widget>
     </item>
     <item alignment="Qt::AlignRight">
+     <widget class="QPushButton" name="dictionaryPushButton">
+      <property name="text">
+       <string>&amp;Dictionary</string>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignRight">
      <widget class="QPushButton" name="quitPushButton">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

@@ -2,6 +2,7 @@
 
 #include "SqlQuery.h"
 #include "Learner.h"
+#include "Phrase.h"
 
 #include <QSqlDatabase>
 #include <QMessageBox>
@@ -83,6 +84,22 @@ Learner Db::getLearner(Id learnerId)
     return learner;
 }
 //-----------------------------------------------------------------------------
+bool Db::addPhrase(const Phrase &phrase, Id *phraseId)
+{
+    SqlQuery insertQuery;
+    insertQuery.prepare(QString("INSERT INTO %1 VALUES (NULL, :eng, :rus, :image)")
+                        .arg(Phrase::Tn));
+    insertQuery.bindValue(":eng", phrase.getEng());
+    insertQuery.bindValue(":rus", phrase.getRus());
+    insertQuery.bindValue(":image", pixmapToByteArray(phrase.getImage()));
+    bool result = insertQuery.exec();
+
+    if (phraseId) {
+        *phraseId = insertQuery.lastInsertId().toLongLong();
+    }
+    return result;
+}
+//-----------------------------------------------------------------------------
 Db::Status Db::createConnection()
 {
     QSqlDatabase sqlDatabase = QSqlDatabase::addDatabase("QSQLITE");
@@ -144,6 +161,21 @@ Db::Status Db::createTables()
                                   , Learner::AvatarCn, Gender::Tn));
     if (!createTableQuery.exec()) {
         qDebug() << "Unable to create the Learner table!";
+        status = Error;
+    }
+
+    // Phrase table:
+    createTableQuery.prepare(QString("CREATE TABLE IF NOT EXISTS %1"
+                                     "( %2 INTEGER NOT NULL UNIQUE"
+                                     ", %3 TEXT    NOT NULL       "
+                                     ", %4 TEXT    NOT NULL       "
+                                     ", %5 BLOB                   "
+                                     ", PRIMARY KEY(%2)           )")
+                             .arg(Phrase::Tn, Phrase::IdCn
+                                  , Phrase::EngCn, Phrase::RusCn
+                                  , Phrase::ImageCn));
+    if (!createTableQuery.exec()) {
+        qDebug() << "Unable to create the Phrase table!";
         status = Error;
     }
 

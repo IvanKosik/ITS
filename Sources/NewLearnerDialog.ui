@@ -130,7 +130,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap>:/Images/Standard Avatar.png</pixmap>
+           <pixmap resource="ITS.qrc">:/Images/StandardAvatar.png</pixmap>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

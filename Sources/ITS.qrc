@@ -8,5 +8,6 @@
         <file>Images/Dialog.jpg</file>
         <file>Images/Parrot.jpg</file>
         <file>Images/English.png</file>
+        <file>Images/StandardImage.png</file>
     </qresource>
 </RCC>

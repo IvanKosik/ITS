@@ -21,7 +21,10 @@ SOURCES += main.cpp\
     SqlQuery.cpp \
     ImageDelegate.cpp \
     Session.cpp \
-    Gender.cpp
+    Gender.cpp \
+    Phrase.cpp \
+    DictionaryDialog.cpp \
+    AddPhraseDialog.cpp
 
 HEADERS  += MainWindow.h \
     Db.h \
@@ -31,11 +34,16 @@ HEADERS  += MainWindow.h \
     SqlQuery.h \
     ImageDelegate.h \
     Session.h \
-    Gender.h
+    Gender.h \
+    Phrase.h \
+    DictionaryDialog.h \
+    AddPhraseDialog.h
 
 FORMS    += MainWindow.ui \
     NewLearnerDialog.ui \
-    LoginDialog.ui
+    LoginDialog.ui \
+    DictionaryDialog.ui \
+    AddPhraseDialog.ui
 
 RESOURCES += \
     ITS.qrc

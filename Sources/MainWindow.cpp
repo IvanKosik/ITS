@@ -3,6 +3,7 @@
 
 #include "NewLearnerDialog.h"
 #include "LoginDialog.h"
+#include "DictionaryDialog.h"
 #include "Session.h"
 #include "Db.h"
 //-----------------------------------------------------------------------------
@@ -60,5 +61,10 @@ void MainWindow::on_logPushButton_clicked()
 void MainWindow::on_quitPushButton_clicked()
 {
     qApp->quit();
+}
+//-----------------------------------------------------------------------------
+void MainWindow::on_dictionaryPushButton_clicked()
+{
+    DictionaryDialog(this);
 }
 //-----------------------------------------------------------------------------

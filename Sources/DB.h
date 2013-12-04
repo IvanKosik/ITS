@@ -2,6 +2,7 @@
 #define DB_H
 
 #include "Learner.h"
+#include "Phrase.h"
 
 #include <QString>
 
@@ -29,6 +30,9 @@ public:
     bool hasLearner(const Learner &learner);
     bool addLearner(const Learner &learner, Id &learnerId);
     Learner getLearner(Id learnerId);
+
+    // Phrase table methods:
+    bool addPhrase(const Phrase &phrase, Id *phraseId = 0);
 
 protected:
     static Status createConnection();
