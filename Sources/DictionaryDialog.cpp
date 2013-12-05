@@ -4,6 +4,7 @@
 #include "Phrase.h"
 #include "ImageDelegate.h"
 #include "AddPhraseDialog.h"
+#include "Speaker.h"
 
 #include <QSqlTableModel>
 //-----------------------------------------------------------------------------
@@ -51,5 +52,11 @@ void DictionaryDialog::on_addPhrasePushButton_clicked()
     if (AddPhraseDialog(this).result() == QDialog::Accepted) {
         mPhraseModel->select();
     }
+}
+//-----------------------------------------------------------------------------
+void DictionaryDialog::on_pronouncePhrasePushButton_clicked()
+{
+    qint32 row = mUi->dictionaryTableView->currentIndex().row();
+    Speaker::instance()->pronounce(mPhraseModel->data(mPhraseModel->index(row, 1)).toString());
 }
 //-----------------------------------------------------------------------------

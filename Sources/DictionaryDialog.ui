@@ -31,16 +31,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="editPhrasePushButton">
+      <widget class="QPushButton" name="pronouncePhrasePushButton">
        <property name="text">
-        <string>&amp;Edit Phrase</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="deletePhrasePushButton">
-       <property name="text">
-        <string>&amp;Delete Phrase</string>
+        <string>&amp;Pronounce Phrase</string>
        </property>
       </widget>
      </item>

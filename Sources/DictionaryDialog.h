@@ -20,6 +20,7 @@ public:
 
 private slots:
     void on_addPhrasePushButton_clicked();
+    void on_pronouncePhrasePushButton_clicked();
 
 private:
     Ui::DictionaryDialog *mUi;
