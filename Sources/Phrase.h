@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QPixmap>
+
+#include <iostream>
 //-----------------------------------------------------------------------------
 class Phrase
 {
@@ -15,11 +17,14 @@ public:
 
     static const QSize ImageSize;
 
-    Phrase(const QString &eng, const QString &rus, const QPixmap &image);
+    Phrase(const QString &eng = "", const QString &rus = ""
+            , const QPixmap &image = QPixmap());
 
     const QString getEng() const;
     const QString getRus() const;
     const QPixmap getImage() const;
+
+    friend std::ostream &operator <<(std::ostream &os, const Phrase &phrase);
 
 private:
     QString mEng;
@@ -27,4 +32,6 @@ private:
     QPixmap mImage;
 };
 //-----------------------------------------------------------------------------
+typedef QList<Phrase> Phrases;
+
 #endif // PHRASE_H

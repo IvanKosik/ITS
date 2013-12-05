@@ -1,5 +1,7 @@
 #include "Phrase.h"
 
+using namespace std;
+
 const QString Phrase::Tn = "Phrase"; // Phrase table name.
 const QString Phrase::IdCn = "PhraseId"; // Phrase ID column name.
 const QString Phrase::EngCn = "PhraseEng";
@@ -26,5 +28,11 @@ const QString Phrase::getRus() const
 const QPixmap Phrase::getImage() const
 {
     return mImage;
+}
+//-----------------------------------------------------------------------------
+ostream &operator <<(ostream &os, const Phrase &phrase) // friend
+{
+    return os << "Error!";
+    //%return os << "Phrase" << phrase.mEng << " - " << phrase.mRus;
 }
 //-----------------------------------------------------------------------------

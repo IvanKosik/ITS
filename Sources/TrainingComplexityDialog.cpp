@@ -35,12 +35,22 @@ TrainingComplexityDialog::~TrainingComplexityDialog()
     delete mUi;
 }
 //-----------------------------------------------------------------------------
+const TrainingComplexityDialog::Complexity TrainingComplexityDialog::getComplexity() const
+{
+    return mComplexity;
+}
+//-----------------------------------------------------------------------------
+const bool TrainingComplexityDialog::needTranslation() const
+{
+    return mWithTranslation;
+}
+//-----------------------------------------------------------------------------
 void TrainingComplexityDialog::okPushButtonClicked()
 {
     mUi->easyRadioButton->isChecked() ? mComplexity = Easy
             : mUi->mediumRadioButton->isChecked() ? mComplexity = Medium
             : mComplexity = Hard;
-    mTranslation = mUi->translationCheckBox->isChecked();
+    mWithTranslation = mUi->translationCheckBox->isChecked();
     done(QDialog::Accepted);
 }
 //-----------------------------------------------------------------------------

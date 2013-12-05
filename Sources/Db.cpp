@@ -100,6 +100,26 @@ bool Db::addPhrase(const Phrase &phrase, Id *phraseId)
     return result;
 }
 //-----------------------------------------------------------------------------
+Phrases Db::getPhrases()
+{
+    SqlQuery findQuery;
+    findQuery.prepare(QString("SELECT * FROM %1").arg(Phrase::Tn));
+    findQuery.exec();
+
+    Phrases phrases;
+    while (findQuery.next()) {
+        QString eng = findQuery.value(Phrase::EngCn).toString();
+        QString rus = findQuery.value(Phrase::RusCn).toString();
+        QPixmap image;
+        image.loadFromData(findQuery.value(Phrase::ImageCn).toByteArray());
+
+        Phrase phrase;
+        phrase = Phrase(eng, rus, image);
+        phrases.append(phrase);
+    }
+    return phrases;
+}
+//-----------------------------------------------------------------------------
 Db::Status Db::createConnection()
 {
     QSqlDatabase sqlDatabase = QSqlDatabase::addDatabase("QSQLITE");

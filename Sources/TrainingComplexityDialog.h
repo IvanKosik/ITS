@@ -23,10 +23,13 @@ public:
     explicit TrainingComplexityDialog(QWidget *parent = 0);
     ~TrainingComplexityDialog();
 
+    const Complexity getComplexity() const;
+    const bool needTranslation() const;
+
 private:
     Ui::TrainingComplexityDialog *mUi;
     Complexity mComplexity;
-    bool mTranslation;
+    bool mWithTranslation;
 
 private slots:
     void okPushButtonClicked();

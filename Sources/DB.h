@@ -33,6 +33,7 @@ public:
 
     // Phrase table methods:
     bool addPhrase(const Phrase &phrase, Id *phraseId = 0);
+    Phrases getPhrases();
 
 protected:
     static Status createConnection();

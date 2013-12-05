@@ -5,8 +5,11 @@
 #include "LoginDialog.h"
 #include "DictionaryDialog.h"
 #include "TrainingComplexityDialog.h"
+#include "TrainingDialog.h"
 #include "Session.h"
 #include "Db.h"
+
+#include <QMessageBox>
 //-----------------------------------------------------------------------------
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -79,6 +82,18 @@ void MainWindow::on_trainingPushButton_clicked()
             game->exec();
         }
         */
-    TrainingComplexityDialog(this);
+    Phrases phrases = Db::instance()->getPhrases();
+    if (phrases.size() < 4) {
+        QMessageBox::warning(this, tr("Expand Dictionary")
+                             , tr("Expand the dictionary size. Min size is 4 phrases."));
+        return;
+    }
+
+    TrainingComplexityDialog trainingComplexityDialog(this);
+    if (trainingComplexityDialog.result() == QDialog::Accepted) {
+        TrainingComplexityDialog::Complexity complexity = trainingComplexityDialog.getComplexity();
+        bool withTranslation = trainingComplexityDialog.needTranslation();
+        TrainingDialog(complexity, withTranslation, this);
+    }
 }
 //-----------------------------------------------------------------------------
