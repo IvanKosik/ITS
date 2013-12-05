@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>120</width>
-    <height>173</height>
+    <width>113</width>
+    <height>218</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,6 +73,16 @@
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lettersLabel">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="answerLineEdit"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="dialogButtonBox">

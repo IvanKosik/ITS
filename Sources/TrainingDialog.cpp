@@ -30,6 +30,21 @@ TrainingDialog::TrainingDialog(TrainingComplexityDialog::Complexity complexity
     mAnswerOptions.append(mUi->dRadioButton);
 
 
+    switch (mComplexity) {
+    case TrainingComplexityDialog::Easy:
+        mUi->lettersLabel->hide();
+        mUi->answerLineEdit->hide();
+        break;
+    case TrainingComplexityDialog::Medium:
+        mUi->answerOptionsGroupBox->hide();
+        break;
+    case TrainingComplexityDialog::Hard:
+        mUi->answerOptionsGroupBox->hide();
+        mUi->lettersLabel->hide();
+        break;
+    }
+
+
     // Buttons:
     mUi->pronouncePushButton->setIconSize(PronounceButtonSize);
 
