@@ -49,13 +49,14 @@ bool Db::addLearner(const Learner &learner, Id &learnerId)
 {
     SqlQuery insertQuery;
     insertQuery.prepare(QString("INSERT INTO %1 VALUES (NULL, :nickname, :password"
-                                ", :gender, :description, :avatar)")
+                                ", :gender, :description, :avatar, :score)")
                         .arg(Learner::Tn));
     insertQuery.bindValue(":nickname", learner.getNickname());
     insertQuery.bindValue(":password", learner.getPassword());
     insertQuery.bindValue(":gender", learner.getGenderType());
     insertQuery.bindValue(":description", learner.getDescription());
     insertQuery.bindValue(":avatar", pixmapToByteArray(learner.getAvatar()));
+    insertQuery.bindValue(":score", learner.getScore());
     bool result = insertQuery.exec();
     learnerId = insertQuery.lastInsertId().toLongLong();
     return result;
@@ -79,9 +80,22 @@ Learner Db::getLearner(Id learnerId)
                 (findQuery.value(Gender::IdCn).toInt());
         QPixmap avatar;
         avatar.loadFromData(findQuery.value(Learner::AvatarCn).toByteArray());
-        learner = Learner(nickname, password, description, genderType, avatar);
+        qint32 score = findQuery.value(Learner::ScoreCn).toInt();
+        learner = Learner(nickname, password, description, genderType, avatar, score);
     }
     return learner;
+}
+//-----------------------------------------------------------------------------
+bool Db::updateLearnerScore(Id learnerId, qint32 newScore)
+{
+    SqlQuery updateQuery;
+    updateQuery.prepare(QString("UPDATE %1 SET %2 = :score WHERE %3 = :id")
+                      .arg(Learner::Tn, Learner::ScoreCn, Learner::IdCn));
+    updateQuery.bindValue(":score", newScore);
+    updateQuery.bindValue(":id", learnerId);
+    return updateQuery.exec();
+
+    //%UPDATE Books SET Author='Lev Nikolayevich Tolstoy' WHERE Id=1;
 }
 //-----------------------------------------------------------------------------
 bool Db::addPhrase(const Phrase &phrase, Id *phraseId)
@@ -173,12 +187,14 @@ Db::Status Db::createTables()
                                      ", %5 INTEGER NOT NULL       "
                                      ", %6 TEXT                   "
                                      ", %7 BLOB                   "
+                                     ", %8 INTEGER                "
                                      ", PRIMARY KEY(%2)           "
-                                     ", FOREIGN KEY(%5) REFERENCES %8(%5))")
+                                     ", FOREIGN KEY(%5) REFERENCES %9(%5))")
                              .arg(Learner::Tn, Learner::IdCn
                                   , Learner::NicknameCn, Learner::PasswordCn
                                   , Gender::IdCn, Learner::DescriptionCn
-                                  , Learner::AvatarCn, Gender::Tn));
+                                  , Learner::AvatarCn, Learner::ScoreCn
+                                  , Gender::Tn));
     if (!createTableQuery.exec()) {
         qDebug() << "Unable to create the Learner table!";
         status = Error;

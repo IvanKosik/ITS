@@ -18,6 +18,8 @@ class TrainingDialog : public QDialog
 
 public:
     static const QSize PronounceButtonSize;
+    static const qint32 ScoreIncrement;
+    static const qint32 ScoreDecrement;
 
     explicit TrainingDialog(TrainingComplexityDialog::Complexity complexity
                             , bool withTranslation, QWidget *parent = 0);
@@ -27,12 +29,16 @@ private:
     void askRandomPhrase();
 
     Ui::TrainingDialog *mUi;
+    TrainingComplexityDialog::Complexity mComplexity;
+    bool mWithTranslation;
     Phrases mPhrases;
     QList<QRadioButton *> mAnswerOptions;
     qint32 mTrueAnswerNumber;
+    qint32 mPhraseNumber;
 
 private slots:
     void answerPushButtonClicked();
+    void on_pronouncePushButton_clicked();
 };
 //-----------------------------------------------------------------------------
 #endif // TRAININGDIALOG_H

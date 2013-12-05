@@ -7,6 +7,7 @@
 #include "TrainingComplexityDialog.h"
 #include "TrainingDialog.h"
 #include "Session.h"
+#include "Speaker.h"
 #include "Db.h"
 
 #include <QMessageBox>
@@ -38,12 +39,17 @@ void MainWindow::sessionOpened(Id learnerId)
     mUi->logPushButton->setText("&Logout");
     Learner learner = Db::instance()->getLearner(learnerId);
     mUi->statusBar->showMessage("Logged learner: " + learner.getNickname());
+                                //%+ "; Score: " + QString::number(learner.getScore()));
+    Speaker::instance()->pronounce("Hello, " + learner.getNickname());
+    mUi->trainingPushButton->setEnabled(true);
 }
 //-----------------------------------------------------------------------------
 void MainWindow::sessionClosed()
 {
+    Speaker::instance()->pronounce("Uvidimsya! Good bye!");
     mUi->logPushButton->setText("&Login");
     mUi->statusBar->clearMessage();
+    mUi->trainingPushButton->setDisabled(true);
 }
 //-----------------------------------------------------------------------------
 void MainWindow::on_newLeanerPushButton_clicked()

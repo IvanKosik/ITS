@@ -50,6 +50,9 @@
     </item>
     <item alignment="Qt::AlignRight|Qt::AlignTop">
      <widget class="QPushButton" name="trainingPushButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>&amp;Training</string>
       </property>

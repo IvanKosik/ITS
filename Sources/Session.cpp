@@ -37,6 +37,11 @@ bool Session::wasOpen() const
     return mOpened;
 }
 //-----------------------------------------------------------------------------
+Id Session::getLearnerId() const
+{
+    return mLearnerId;
+}
+//-----------------------------------------------------------------------------
 Session::Session(QObject *parent) : QObject(parent)
 {
     mLearnerId = -1;

@@ -30,6 +30,7 @@ public:
     bool hasLearner(const Learner &learner);
     bool addLearner(const Learner &learner, Id &learnerId);
     Learner getLearner(Id learnerId);
+    bool updateLearnerScore(Id learnerId, qint32 newScore);
 
     // Phrase table methods:
     bool addPhrase(const Phrase &phrase, Id *phraseId = 0);

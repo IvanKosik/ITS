@@ -10,12 +10,13 @@ const QString Learner::NicknameCn = "LearnerNickname";
 const QString Learner::PasswordCn = "LearnerPassword";
 const QString Learner::DescriptionCn = "LearnerDescription";
 const QString Learner::AvatarCn = "LearnerAvatar";
+const QString Learner::ScoreCn = "LearnerScore";
 //-----------------------------------------------------------------------------
 Learner::Learner(const QString &nickname, const QString &password
                  , const QString &description, const Gender::Type genderType
-                 , const QPixmap &avatar)
+                 , const QPixmap &avatar, const qint32 score)
     : mNickname(nickname), mPassword(password), mDescription(description)
-    , mGenderType(genderType), mAvatar(avatar)
+    , mGenderType(genderType), mAvatar(avatar), mScore(score)
 {
 }
 //-----------------------------------------------------------------------------
@@ -42,6 +43,11 @@ void Learner::setGenderType(const Gender::Type genderType)
 void Learner::setAvatar(const QPixmap &avatar)
 {
     mAvatar = avatar;
+}
+//-----------------------------------------------------------------------------
+void Learner::setScore(const qint32 score)
+{
+    mScore = score;
 }
 //-----------------------------------------------------------------------------
 QString Learner::getNickname() const
@@ -72,5 +78,10 @@ QString Learner::getGenderStr() const
 QPixmap Learner::getAvatar() const
 {
     return mAvatar;
+}
+//-----------------------------------------------------------------------------
+qint32 Learner::getScore() const
+{
+    return mScore;
 }
 //-----------------------------------------------------------------------------

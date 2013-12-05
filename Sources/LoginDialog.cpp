@@ -38,10 +38,11 @@ LoginDialog::LoginDialog(QWidget *parent)
     // Display learners:
     mLearnerModel = new QSqlQueryModel;
     SqlQuery learnerQuery;
-    learnerQuery.prepare(QString("SELECT %1, %2, %3, %4, %5, %6 FROM %7 INNER JOIN %8 ON %7.%9 = %8.%9")
+    learnerQuery.prepare(QString("SELECT %1, %2, %3, %4, %5, %6, %7 FROM %8 INNER JOIN %9 ON %8.%10 = %9.%10 ORDER BY %7 DESC")
                          .arg(Learner::IdCn, Learner::NicknameCn, Learner::PasswordCn
                               , Gender::NameCn, Learner::DescriptionCn, Learner::AvatarCn
-                              , Learner::Tn, Gender::Tn, Gender::IdCn));
+                              , Learner::ScoreCn, Learner::Tn, Gender::Tn)
+                         .arg(Gender::IdCn));
     learnerQuery.exec();
     mLearnerModel->setQuery(learnerQuery);
 
@@ -51,6 +52,7 @@ LoginDialog::LoginDialog(QWidget *parent)
     mLearnerModel->setHeaderData(3, Qt::Horizontal, "Gender");
     mLearnerModel->setHeaderData(4, Qt::Horizontal, "Description");
     mLearnerModel->setHeaderData(5, Qt::Horizontal, "Avatar");
+    mLearnerModel->setHeaderData(6, Qt::Horizontal, "Score");
 
     mUi->learnerTableView->setModel(mLearnerModel);
     mUi->learnerTableView->setItemDelegateForColumn(5, new ImageDelegate(mUi->learnerTableView));

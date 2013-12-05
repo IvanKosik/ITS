@@ -16,6 +16,8 @@ public:
 
     bool wasOpen() const;
 
+    Id getLearnerId() const;
+
 private:
     Session(QObject *parent = 0);
     ~Session();
